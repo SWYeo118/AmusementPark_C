@@ -15,7 +15,6 @@ int main()
 	const int NigKid = 46000;
 	const int NigBaby = 15000;
 	const int NigOld = 46000;
-	
 	printf("권종을 선택하세요\n1.주간권\n2.야간권\n");
 	scanf("%d", &ticketType);  																// ticketType 번호를 받음 
 	printf("주민등록번호 앞자리 전부와 뒷 자리 한자리를 입력하세요(ex 930118 1)\n");
