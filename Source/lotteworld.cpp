@@ -3,31 +3,42 @@
 
 int main()
 {
-	int ticketType, ticketNum, advantage, totalPay, citizenNum, year, numBack, calYear, norPay;
+	
+	int proceed; 
+	do
+	{
+	int ticketType, ticketNum, advantage, totalPay, citizenNum, year, numBack, calYear, norPay, stop;
 	const int MorNor = 59000;
 	const int MorTeen = 52000;
 	const int MorKid = 47000;
 	const int MorBaby = 15000;
 	const int MorOld = 47000;
 	
-	const int NigNor = 56000;
+	const int NigNor = 56000; 			// 상수는 변수이름을 대문자로 하자 
 	const int NigTeen = 50000;
 	const int NigKid = 46000;
 	const int NigBaby = 15000;
 	const int NigOld = 46000;
-	// 상수는 변수이름을 대문자로 하자 
-	
 	printf("권종을 선택하세요\n1.주간권\n2.야간권\n");
-	scanf("%d", &ticketType);  																// ticketType 번호를 받음 
+	scanf("%d", &ticketType); 
+	if (!(ticketType == 1 || ticketType == 2 ))
+	{for(;;)
+		{
+		printf("권종을 잘못 선택하셨습니다. 다시 선택하세요\n1.주간권\n2.야간권\n");
+		scanf("%d", &ticketType); 
+		if ((ticketType == 1 || ticketType == 2 ))
+			break;
+		}
+	}
 	printf("주민등록번호 앞자리 전부와 뒷 자리 한자리를 입력하세요(ex 930118 1)\n");
-	scanf("%d %d", &citizenNum, &numBack);													// 주민증록번호 얖자리, 뒷자리를 받음 
+	scanf("%d %d", &citizenNum, &numBack);												
 	
 	year = citizenNum/10000;
 	
 	if (numBack==1 || numBack==2)
 	 {calYear = 2022 - (1900+year);
 	 }
-	if (numBack==3 || numBack==4)
+	else if (numBack==3 || numBack==4)
 	 {calYear = 2022 - (2000+year);
 	 }
 	
@@ -37,52 +48,63 @@ int main()
 			{
 				norPay = NigBaby;
 			}
-			else if (3<=calYear<12)
+			else if (calYear<12)
 			{
 				norPay = NigKid;
 			}
-			else if (13<=calYear<=18)
+			else if (calYear<=18)
 			{
 				norPay = NigTeen;
 			}
-			else if (19<=calYear<65)
+			else if (calYear<65)
 			{
 				norPay = NigNor;
 			}
-			else if (65<=calYear)
+			else
 			{
 				norPay = NigOld;
-			}	
+			}		
 		}
-	else if 
-				{
+		
+	else if (ticketType == 1)
+			{
 					if(calYear<3)
 				{
 					norPay = MorBaby;
 				}
-					else if (3<=calYear<12)
+					else if (calYear<12)
 				{
 					norPay = MorKid;
 				}
-					else if (13<=calYear<=18)
+					else if (calYear<=18)
 				{
 					norPay = MorTeen;
 				}
-					else if (19<=calYear<65)
+					else if (calYear<65)
 				{
 					norPay = MorNor;
 				}
-					else if (65<=calYear);
+					else
 				{
 					norPay = MorOld;
 				}
-				}
+			}
+			
 	printf("티켓 몇 장을 발권하시겠습니까?\n");
 	scanf("%d", &ticketNum);
 	printf("우대사항을 선택하세요\n");
 	printf("1. 없음\n2. 장애인\n3. 국가유공자\n4. 휴가장병\n5. 임산부\n6. 다둥이 행복카드\n");
 	scanf("%d", &advantage);
-		if(advantage==1)
+if (!(advantage == 1 || advantage == 2 || advantage == 3 || advantage == 4 || advantage == 5 || advantage == 6 ))
+	{for(;;)
+		{
+		printf("우대사항을 잘못 선택하셨습니다. 다시 선택하세요\n1. 없음\n2. 장애인\n3. 국가유공자\n4. 휴가장병\n5. 임산부\n6. 다둥이 행복카드\n");
+		scanf("%d", &advantage); 
+		if ((advantage == 1 || advantage == 2 || advantage == 3 || advantage == 4 || advantage == 5 || advantage == 6 ))
+			break;
+		}
+	}
+	if(advantage==1)
 		{
 		norPay=norPay;}
 		
@@ -107,13 +129,14 @@ int main()
 		 norPay=norPay*0.7;}
 	
 	totalPay = (ticketNum * norPay);
-	printf("가격은 %d 원 입니다.\n감사합니다.", totalPay);
+	printf("가격은 %d 원 입니다.\n계속해서 발권을 진행하시겠습니까? 1.예/2.아니오\n", totalPay);
+	scanf("%1d", &proceed);
+	}while(proceed<=1);
+	
+	printf("감사합니다.");
+
 	return 0;
 }
-
-
-
-
 
 /*
 종일 
