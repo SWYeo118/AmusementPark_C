@@ -8,11 +8,10 @@ int main()
 	time_t t = time(NULL);
 	struct tm tm = *localtime(&t);
 	
-	int proceed; 
-	
+	int proceed;
 	do
 	{
-	int ticketType, ticketNum, advantage, totalPay, citizenNum, year, numBack, calYear, norPay, stop;
+	int ticketType, ticketNum, advantage, totalPay, citizenNum, year, numBack, calYear, norPay;
 	int month, day, gap;
 	const int MorNor = 59000;
 	const int MorTeen = 52000;
@@ -25,8 +24,9 @@ int main()
 	const int NigKid = 46000;
 	const int NigBaby = 15000;
 	const int NigOld = 46000;
-	printf("%7s %d년 %d월 %d일 %d:%d:%d\n\n", "현재시각 :",tm.tm_year+1900, tm.tm_mon+1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
-	printf("권종을 선택하세요\n1.주간권\n2.야간권\n");
+	printf("%18s %d년 %d월 %d일 %02d:%02d:%02d\n\n", "현재시각 :",tm.tm_year+1900, tm.tm_mon+1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+	printf("v 놀이공원 티켓 발권 서비스에 오신 것을 환영합니다.\n\n");
+	printf("발권하실 권종을 선택하세요\n1.주간권\n2.야간권\n");
 	scanf("%d", &ticketType); 
 	if (!(ticketType == 1 || ticketType == 2 ))
 	{for(;;)
@@ -37,7 +37,7 @@ int main()
 			break;
 		}
 	}
-	printf("주민등록번호 앞자리와 뒷 자리 한자리를 입력하세요(ex 930118-1)\n");
+	printf("연령 확인을 위해 주민등록번호 앞자리와 뒷 자리 한자리를 입력하세요(ex 930118-1)\n");
 	scanf("%d-%d", &citizenNum, &numBack);												
 	
 	year = citizenNum/10000;
@@ -45,20 +45,19 @@ int main()
 	day = citizenNum%100;
 	
 	if (numBack==1 || numBack==2)
-	 {calYear = (tm.tm_year - year);
+	 {calYear = (tm.tm_year - year);}
 	else if (numBack==3 || numBack==4)
-	 {calYear = ((tm.tm_year-100) - year);
-	if(month >= (tm.tm_mon+1) && day >= (tm.tm_mday))
+	 {calYear = ((tm.tm_year-100) - year);}
+	 
+	if(month <=(tm.tm_mon+1) && day <= (tm.tm_mday))
 		{
 			calYear = calYear;
-			printf("%d\n",calYear); 
 		} 
 		else
 		{
-			calYear = calYear -1;
-			printf("%d\n",calYear);
+			calYear = calYear-1;
 		}
-
+		printf("만 %d세 입니다.\n",calYear); 
 	if (ticketType == 2)
 		{
 			if(calYear<3)
@@ -82,7 +81,6 @@ int main()
 				norPay = NigOld;
 			}		
 		}
-		
 	else if (ticketType == 1)
 			{
 					if(calYear<3)
@@ -144,13 +142,15 @@ if (!(advantage == 1 || advantage == 2 || advantage == 3 || advantage == 4 || ad
 		else if(advantage==6)
 		 {
 		 norPay=norPay*0.7;}
-	
+		 
 	totalPay = (ticketNum * norPay);
-	printf("가격은 %d 원 입니다.\n계속해서 발권을 진행하시겠습니까? 1.예/2.아니오\n", totalPay);
-	scanf("%1d", &proceed);
-	}while(proceed<=1);
+	printf("총 티켓 가격은 %d 원 입니다.\n계속해서 발권을 진행하시겠습니까? 1.예/2.아니오\n", totalPay);
 	
-	printf("감사합니다.");
+	scanf("%1d", &proceed);
+	}
+	
+	while(proceed<=1);
+	printf("이용해주셔서 감사합니다.");
 
 	return 0;
 }
