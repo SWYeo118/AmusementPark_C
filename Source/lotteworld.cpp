@@ -15,7 +15,6 @@ int main()
 	const int NigKid = 46000;
 	const int NigBaby = 15000;
 	const int NigOld = 46000;
-	
 	// 상수는 변수이름을 대문자로 하자 
 	
 	printf("권종을 선택하세요\n1.주간권\n2.야간권\n");
