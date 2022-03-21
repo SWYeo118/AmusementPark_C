@@ -1,13 +1,19 @@
 
 #include <stdio.h>
+#include <time.h>
 
 int main()
 {
 	
+	time_t t = time(NULL);
+	struct tm tm = *localtime(&t);
+	
 	int proceed; 
+	
 	do
 	{
 	int ticketType, ticketNum, advantage, totalPay, citizenNum, year, numBack, calYear, norPay, stop;
+	int month, day, gap;
 	const int MorNor = 59000;
 	const int MorTeen = 52000;
 	const int MorKid = 47000;
@@ -19,6 +25,7 @@ int main()
 	const int NigKid = 46000;
 	const int NigBaby = 15000;
 	const int NigOld = 46000;
+	printf("%7s %d년 %d월 %d일 %d:%d:%d\n\n", "현재시각 :",tm.tm_year+1900, tm.tm_mon+1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
 	printf("권종을 선택하세요\n1.주간권\n2.야간권\n");
 	scanf("%d", &ticketType); 
 	if (!(ticketType == 1 || ticketType == 2 ))
@@ -30,18 +37,28 @@ int main()
 			break;
 		}
 	}
-	printf("주민등록번호 앞자리 전부와 뒷 자리 한자리를 입력하세요(ex 930118 1)\n");
-	scanf("%d %d", &citizenNum, &numBack);												
+	printf("주민등록번호 앞자리와 뒷 자리 한자리를 입력하세요(ex 930118-1)\n");
+	scanf("%d-%d", &citizenNum, &numBack);												
 	
 	year = citizenNum/10000;
+	month = (citizenNum%1000)/100;
+	day = citizenNum%100;
 	
 	if (numBack==1 || numBack==2)
-	 {calYear = 2022 - (1900+year);
-	 }
+	 {calYear = (tm.tm_year - year);
 	else if (numBack==3 || numBack==4)
-	 {calYear = 2022 - (2000+year);
-	 }
-	
+	 {calYear = ((tm.tm_year-100) - year);
+	if(month >= (tm.tm_mon+1) && day >= (tm.tm_mday))
+		{
+			calYear = calYear;
+			printf("%d\n",calYear); 
+		} 
+		else
+		{
+			calYear = calYear -1;
+			printf("%d\n",calYear);
+		}
+
 	if (ticketType == 2)
 		{
 			if(calYear<3)
